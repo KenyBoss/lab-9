@@ -1,5 +1,5 @@
 import java.util.HashMap;
-
+import java.util.ArrayList;
 /**
  * Class Room - a room in an adventure game.
  *
@@ -18,6 +18,8 @@ public class Room
 {
     private String description;
     private HashMap<String,Room> exits;
+    private Item item;
+    
     /**
      * Create a room described "description". Initially, it has
      * no exits. "description" is something like "a kitchen" or
@@ -28,8 +30,14 @@ public class Room
     {
         this.description = description;
         exits = new HashMap<>();
+        
+        
     }
 
+    
+    public void setItem(Item item) {
+        this.item = item;
+    }
     public Room getExit(String direction){
         Room nextRoom = exits.get(direction);
         return nextRoom;
