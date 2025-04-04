@@ -34,7 +34,7 @@ public class Game
      */
     private void createRooms()
     {
-        Room outside, theater, pub, lab, office;
+        Room outside, theater, pub, lab, office,bedroom, work,school;
       
         // create the rooms
         outside = new Room("outside the main entrance of the university");
@@ -42,11 +42,23 @@ public class Game
         pub = new Room("in the campus pub");
         lab = new Room("in a computing lab");
         office = new Room("in the computing admin office");
+       
+        
         
         // initialise room exits
         outside.setExit("east",theater);
         outside.setExit("south", lab);
         outside.setExit("west", pub);
+        
+        Item key = new Item("a shiny key", 0.1);
+        Item book = new Item("a dusty book", 1.2);
+        Item laptop = new Item("a laptop", 2.5);
+        
+        outside.setItem(key); // Set item in outside room
+      theater.setItem(book); // Set item in theater room
+       lab.setItem(laptop); // Set item in lab room
+
+        
         
         theater.setExit("west", outside);
         
@@ -93,6 +105,12 @@ public class Game
 
     private void printLocationInfo(){        
         System.out.println(currentRoom.getLongDescription());
+        Item item = currentRoom.getItem();
+    if (item != null) {
+        System.out.println("You see an item: " + item.getDescription() + " (Weight: " + item.getWeight() + ")");
+    } else {
+        System.out.println("There is no item in this room.");
+    }
     }
     
     /**

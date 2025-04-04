@@ -18,6 +18,8 @@ public class Item
     public String getDescription() {
         return description;
     }
-    
+       public double getWeight() {
+        return weight;
+    }
     
 }  
