@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 /**
  * Class Room - a room in an adventure game.
  *
@@ -14,12 +16,8 @@
  */
 public class Room 
 {
-    public String description;
-    public Room northExit;
-    public Room southExit;
-    public Room eastExit;
-    public Room westExit;
-
+    private String description;
+    private HashMap<String,Room> exits;
     /**
      * Create a room described "description". Initially, it has
      * no exits. "description" is something like "a kitchen" or
@@ -29,8 +27,29 @@ public class Room
     public Room(String description) 
     {
         this.description = description;
+        exits = new HashMap<>();
     }
 
+    public Room getExit(String direction){
+        Room nextRoom = exits.get(direction);
+        return nextRoom;
+    }
+    
+    /** * Return a description of the room’s exits,
+    * for example, "Exits: north west".
+    * @return A description of the available exits.
+    */
+    public String getLongDescription() {
+        return "You are " + description + "/n" + getExitString(); 
+    }
+      
+    public String getExitString() {
+      String exitString = "\nExits: ";
+      for(String direction:exits.keySet()) {
+            exitString += ("" + direction);
+        }    
+        return exitString;
+    }
     /**
      * Define the exits of this room.  Every direction either leads
      * to another room or is null (no exit there).
@@ -39,20 +58,9 @@ public class Room
      * @param south The south exit.
      * @param west The west exit.
      */
-    public void setExits(Room north, Room east, Room south, Room west) 
+    public void setExit(String direction,Room neighbor) 
     {
-        if(north != null) {
-            northExit = north;
-        }
-        if(east != null) {
-            eastExit = east;
-        }
-        if(south != null) {
-            southExit = south;
-        }
-        if(west != null) {
-            westExit = west;
-        }
+      exits.put(direction,neighbor); 
     }
 
     /**
@@ -62,5 +70,4 @@ public class Room
     {
         return description;
     }
-
-}
+ }
